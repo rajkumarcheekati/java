@@ -1,32 +1,10 @@
-sudo: false
-language: java
-jdk:
-  - oraclejdk8
-  - oraclejdk7
-env:
-  - TESTFOLDER=batch
-  - TESTFOLDER=cdi
-  - TESTFOLDER=concurrency
-  - TESTFOLDER=ejb
-  - TESTFOLDER=el
-  - TESTFOLDER=extra
-  - TESTFOLDER=interceptor
-  - TESTFOLDER=jacc
-  - TESTFOLDER=jaspic
-  - TESTFOLDER=javamail
-  - TESTFOLDER=jaxrs
-  - TESTFOLDER=jaxws
-  - TESTFOLDER=jca
-  - TESTFOLDER=jms
-  - TESTFOLDER=jpa
-  - TESTFOLDER=jsf
-  - TESTFOLDER=json
-  - TESTFOLDER=jta
-  - TESTFOLDER=servlet
-  - TESTFOLDER=validation
-  - TESTFOLDER=websocket
-  
-  
-install: mvn install --quiet -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-script: cd $TESTFOLDER && mvn -q --fail-at-end install -Pglassfish-embedded-arquillian -B 2>&1
+    deploy:
+      - provider: s3
+        ⋮ # rest of S3 deployment for MyApp.zip
+      - provider: codedeploy
+        access_key_id: "YOUR AWS ACCESS KEY"
+        secret_access_key: "YOUR AWS SECRET KEY"
+        bucket: "S3 Bucket"
+        key: latest/MyApp.zip
+        application: MyApp
+        deployment_group: MyDeploymentGroup
